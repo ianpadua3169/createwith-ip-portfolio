@@ -1,0 +1,6 @@
+node_modules/
+dist/
+app.tar.gz
+.env
+.env.*
+*.log
