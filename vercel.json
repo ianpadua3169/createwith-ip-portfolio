@@ -1,6 +1,6 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "dist",
+  "buildCommand": "cd apps/web && npm install && npx nuxt build",
+  "outputDirectory": "apps/web/.output/public",
   "installCommand": "npm install",
   "framework": null
 }

@@ -4,16 +4,10 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently --kill-others --raw \"npm run dev --prefix apps/web\"",
+    "dev": "npm run dev --prefix apps/web",
     "build": "npm run build --prefix apps/web",
-    "start": "node server.js",
-    "lint": "concurrently --raw \"npm run lint --prefix apps/web\""
-  },
-  "dependencies": {
-    "express": "^5.2.1"
-  },
-  "devDependencies": {
-    "concurrently": "^9.1.2"
+    "start": "node apps/web/.output/server/index.mjs",
+    "postinstall": "npm install --prefix apps/web"
   },
   "workspaces": [
     "apps/*"

@@ -1,0 +1,68 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  font-family: 'JetBrains Mono', monospace;
+  background: #0A0E27;
+  color: #e5e7eb;
+}
+
+.neon-glow {
+  text-shadow: 0 0 10px rgba(0, 255, 65, 0.5), 0 0 20px rgba(0, 255, 65, 0.3), 0 0 40px rgba(0, 255, 65, 0.1);
+  color: #00FF41;
+}
+
+.neon-glow-blue {
+  text-shadow: 0 0 10px rgba(0, 217, 255, 0.5), 0 0 20px rgba(0, 217, 255, 0.3);
+  color: #00D9FF;
+}
+
+.neon-glow-purple {
+  text-shadow: 0 0 10px rgba(157, 78, 221, 0.5), 0 0 20px rgba(157, 78, 221, 0.3);
+  color: #9D4EDD;
+}
+
+.neon-border {
+  border: 1px solid rgba(0, 255, 65, 0.3);
+  box-shadow: 0 0 15px rgba(0, 255, 65, 0.1), inset 0 0 15px rgba(0, 255, 65, 0.05);
+}
+
+.neon-border-blue {
+  border: 1px solid rgba(0, 217, 255, 0.3);
+  box-shadow: 0 0 15px rgba(0, 217, 255, 0.1);
+}
+
+.terminal-text {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+.animate-blink {
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in-up-delay-1 { animation-delay: 0.1s; opacity: 0; }
+.animate-fade-in-up-delay-2 { animation-delay: 0.2s; opacity: 0; }
+.animate-fade-in-up-delay-3 { animation-delay: 0.3s; opacity: 0; }
+
+*:focus-visible {
+  outline: 2px solid #00FF41;
+  outline-offset: 2px;
+  box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+}
