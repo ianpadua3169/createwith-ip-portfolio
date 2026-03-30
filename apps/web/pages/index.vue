@@ -24,6 +24,11 @@
               <Github class="w-5 h-5" />
               GitHub
             </a>
+            <a href="/Ian-Padua-CV.pdf" download
+               class="flex items-center gap-3 px-6 py-3 bg-terminal-panel border border-terminal-purple/30 text-terminal-purple rounded-lg hover:bg-terminal-purple/10 transition-all duration-200 active:scale-95 font-medium">
+              <Download class="w-5 h-5" />
+              Download CV
+            </a>
           </div>
         </div>
       </div>
@@ -47,7 +52,7 @@
 </template>
 
 <script setup>
-import { Mail, Github, Terminal } from 'lucide-vue-next'
+import { Mail, Github, Terminal, Download } from 'lucide-vue-next'
 
 const commandPaletteOpen = ref(false)
 

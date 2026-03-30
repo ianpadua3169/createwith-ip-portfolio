@@ -86,9 +86,15 @@ function executeCmd(cmd) {
     'about --me': 'Ian Padua\nSystems & Web Developer | IT Project Manager\nLocation: Antipolo City, Rizal, Philippines\nExperience: 25+ years across PH, KSA, Mongolia\nEducation: STI (Programming) | Don Bosco (Electronics)',
     'projects --all': '1. Headless CMS Blog & Portfolio (Nuxt.js + Sanity.io)\n2. Java Library Management System (LMS)\n3. Enterprise BIR Zonal Value Plugin (WordPress)\n4. IT Curriculum & Lab Migration (Ikh Zasag, Mongolia)\n5. Integrated Security & Web Deployment\n6. Multi-Branch Fiber Optic Network Migration (KSA)\n7. Legacy Financial System Migration',
     'contact --email': 'Email: ianpadua@createwith-ip.com\nGitHub: github.com/ianpadua3169',
-    'download --cv': 'CV download feature coming soon...'
+    'download --cv': 'Downloading CV...'
   }
   output.value.push({ type: responses[cmd] ? 'output' : 'error', text: responses[cmd] || `Command not found: ${cmd}\nType 'help' for available commands` })
+  if (cmd === 'download --cv') {
+    const link = document.createElement('a')
+    link.href = '/Ian-Padua-CV.pdf'
+    link.download = 'Ian-Padua-CV.pdf'
+    link.click()
+  }
   input.value = ''
 }
 
