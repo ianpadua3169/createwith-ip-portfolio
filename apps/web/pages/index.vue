@@ -44,6 +44,16 @@
           </div>
           <p class="text-sm text-gray-400">&copy; 2026 All rights reserved</p>
         </div>
+        <p class="mt-8 text-center text-xs text-gray-500 terminal-text leading-relaxed">
+          <span class="text-gray-400">Terminal commands</span>
+          — press
+          <kbd class="ml-1.5 px-2 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.7rem]">Ctrl</kbd><span class="mx-0.5 text-gray-600">+</span><kbd class="px-2 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.7rem]">K</kbd>
+          <span class="mx-1.5 text-gray-600">or</span>
+          <kbd class="px-2 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.7rem]">⌘</kbd><span class="mx-0.5 text-gray-600">+</span><kbd class="px-2 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.7rem]">K</kbd>
+          <span class="mx-1.5 text-gray-600">or</span>
+          <kbd class="px-2 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.7rem]">/</kbd>
+          <span class="ml-1.5">to open the command palette.</span>
+        </p>
       </div>
     </footer>
 
@@ -57,7 +67,11 @@ import { Mail, Github, Terminal, Download } from 'lucide-vue-next'
 const commandPaletteOpen = ref(false)
 
 const handleKeydown = (e) => {
-  if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && e.target.tagName !== 'INPUT')) {
+  const tag = e.target?.tagName
+  const typing = tag === 'INPUT' || tag === 'TEXTAREA' || e.target?.isContentEditable
+  const paletteKey = (e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k'
+  const slash = e.key === '/' && !typing
+  if (paletteKey || slash) {
     e.preventDefault()
     commandPaletteOpen.value = true
   }
