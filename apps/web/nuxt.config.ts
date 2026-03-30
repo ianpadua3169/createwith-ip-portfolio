@@ -3,6 +3,9 @@ import { dirname, resolve } from 'node:path'
 
 const currentDir = dirname(fileURLToPath(import.meta.url))
 
+/** Vercel sets VERCEL=1; Nitro needs the `vercel` preset + Build Output at repo root for monorepos */
+const isVercel = process.env.VERCEL === '1'
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
   modules: ['@nuxtjs/tailwindcss'],
@@ -19,10 +22,12 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   devtools: { enabled: false },
   nitro: {
-    preset: 'node-server',
-    // Monorepo root: Hostinger/Vercel expect .output at repo root, not under apps/web
+    // Hostinger / VPS: node-server + `.output`. Vercel: serverless preset + `.vercel/output` at monorepo root.
+    preset: isVercel ? 'vercel' : 'node-server',
     output: {
-      dir: resolve(currentDir, '../../.output')
+      dir: isVercel
+        ? resolve(currentDir, '../../.vercel/output')
+        : resolve(currentDir, '../../.output')
     }
   }
 })
