@@ -24,8 +24,9 @@
               <Github class="w-5 h-5" />
               GitHub
             </a>
-            <a href="/Ian-Padua-CV.pdf" download
-               class="flex items-center gap-3 px-6 py-3 bg-terminal-panel border border-terminal-purple/30 text-terminal-purple rounded-lg hover:bg-terminal-purple/10 transition-all duration-200 active:scale-95 font-medium">
+            <a :href="cvHref" download="Ian-Padua-CV.pdf"
+               class="flex items-center gap-3 px-6 py-3 bg-terminal-panel border border-terminal-purple/30 text-terminal-purple rounded-lg hover:bg-terminal-purple/10 transition-all duration-200 active:scale-95 font-medium"
+               @click.prevent="onCvDownloadClick">
               <Download class="w-5 h-5" />
               Download CV
             </a>
@@ -65,6 +66,12 @@
 import { Mail, Github, Terminal, Download } from 'lucide-vue-next'
 
 const commandPaletteOpen = ref(false)
+const { cvHref, downloadAsFile } = useCvDownload()
+
+async function onCvDownloadClick() {
+  const ok = await downloadAsFile()
+  if (!ok) window.location.assign(cvHref.value)
+}
 
 const handleKeydown = (e) => {
   const tag = e.target?.tagName

@@ -64,6 +64,7 @@ const input = ref('')
 const output = ref([])
 const inputEl = ref(null)
 const snakeOpen = ref(false)
+const { downloadAsFile } = useCvDownload()
 
 watch(() => props.open, (val) => {
   if (val) nextTick(() => inputEl.value?.focus())
@@ -104,10 +105,16 @@ function executeCmd(cmd) {
   }
   output.value.push({ type: responses[cmd] ? 'output' : 'error', text: responses[cmd] || `Command not found: ${cmd}\nType 'help' for available commands` })
   if (cmd === 'download --cv') {
-    const link = document.createElement('a')
-    link.href = '/Ian-Padua-CV.pdf'
-    link.download = 'Ian-Padua-CV.pdf'
-    link.click()
+    input.value = ''
+    void downloadAsFile().then((ok) => {
+      if (!ok) {
+        output.value.push({
+          type: 'error',
+          text: 'Could not download CV. Confirm apps/web/public/Ian-Padua-CV.pdf exists and redeploy; check browser blockers for downloads.'
+        })
+      }
+    })
+    return
   }
   input.value = ''
 }
