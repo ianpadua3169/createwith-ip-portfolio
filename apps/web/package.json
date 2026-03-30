@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nuxt dev --port 3000",
     "build": "nuxt build",
-    "start": "node .output/server/index.mjs",
+    "start": "node ../../dist/server/index.mjs",
     "generate": "nuxt generate",
     "preview": "nuxt preview"
   },

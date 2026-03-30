@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm run dev --prefix apps/web",
     "build": "npm run build --prefix apps/web",
-    "start": "node apps/web/.output/server/index.mjs",
+    "start": "node dist/server/index.mjs",
     "postinstall": "npm install --prefix apps/web"
   },
   "workspaces": [

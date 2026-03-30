@@ -1,3 +1,8 @@
+import { fileURLToPath } from 'node:url'
+import { dirname, resolve } from 'node:path'
+
+const currentDir = dirname(fileURLToPath(import.meta.url))
+
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
   modules: ['@nuxtjs/tailwindcss'],
@@ -14,6 +19,10 @@ export default defineNuxtConfig({
   css: ['~/assets/css/main.css'],
   devtools: { enabled: false },
   nitro: {
-    preset: 'node-server'
+    preset: 'node-server',
+    // Monorepo: emit to repo-root /dist so Hostinger (expected output dir) finds the build
+    output: {
+      dir: resolve(currentDir, '../../dist')
+    }
   }
 })
