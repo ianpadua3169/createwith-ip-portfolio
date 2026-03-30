@@ -51,10 +51,11 @@
       </div>
     </Transition>
   </Teleport>
+  <SnakeGame v-model:open="snakeOpen" />
 </template>
 
 <script setup>
-import { Terminal as TerminalIcon, Download, Mail, Github, HelpCircle } from 'lucide-vue-next'
+import { Terminal as TerminalIcon, Download, Mail, Github, HelpCircle, Gamepad2 } from 'lucide-vue-next'
 
 const props = defineProps({ open: Boolean })
 const emit = defineEmits(['update:open'])
@@ -62,6 +63,7 @@ const emit = defineEmits(['update:open'])
 const input = ref('')
 const output = ref([])
 const inputEl = ref(null)
+const snakeOpen = ref(false)
 
 watch(() => props.open, (val) => {
   if (val) nextTick(() => inputEl.value?.focus())
@@ -69,6 +71,7 @@ watch(() => props.open, (val) => {
 
 const commands = [
   { value: 'help', label: 'help', description: 'Show available commands', icon: HelpCircle },
+  { value: 'play --snake', label: 'play --snake', description: 'Play snake game', icon: Gamepad2 },
   { value: 'about --me', label: 'about --me', description: 'Show about info', icon: TerminalIcon },
   { value: 'projects --all', label: 'projects --all', description: 'List all projects', icon: TerminalIcon },
   { value: 'contact --email', label: 'contact --email', description: 'Show contact info', icon: Mail },
@@ -81,8 +84,19 @@ const filteredCommands = computed(() =>
 
 function executeCmd(cmd) {
   output.value.push({ type: 'input', text: `$ ${cmd}` })
+
+  if (cmd === 'play --snake') {
+    output.value.push({ type: 'output', text: 'Launching snake game...' })
+    input.value = ''
+    setTimeout(() => {
+      emit('update:open', false)
+      snakeOpen.value = true
+    }, 500)
+    return
+  }
+
   const responses = {
-    'help': 'Available commands:\n  help - Show this help\n  about --me - Show about info\n  projects --all - List projects\n  contact --email - Show contact\n  download --cv - Download CV',
+    'help': 'Available commands:\n  help - Show this help\n  play --snake - Play snake game\n  about --me - Show about info\n  projects --all - List projects\n  contact --email - Show contact\n  download --cv - Download CV',
     'about --me': 'Ian Padua\nSystems & Web Developer | IT Project Manager\nLocation: Antipolo City, Rizal, Philippines\nExperience: 25+ years across PH, KSA, Mongolia\nEducation: STI (Programming) | Don Bosco (Electronics)',
     'projects --all': '1. Headless CMS Blog & Portfolio (Nuxt.js + Sanity.io)\n2. Java Library Management System (LMS)\n3. Enterprise BIR Zonal Value Plugin (WordPress)\n4. IT Curriculum & Lab Migration (Ikh Zasag, Mongolia)\n5. Integrated Security & Web Deployment\n6. Multi-Branch Fiber Optic Network Migration (KSA)\n7. Legacy Financial System Migration',
     'contact --email': 'Email: ianpadua@createwith-ip.com\nGitHub: github.com/ianpadua3169',
