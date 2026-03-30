@@ -119,6 +119,8 @@ let tick = null
 watch(
   () => props.open,
   (val) => {
+    if (!import.meta.client) return
+
     if (val) {
       if (tick) {
         clearInterval(tick)
@@ -166,6 +168,7 @@ watch(
 )
 
 onUnmounted(() => {
+  if (!import.meta.client) return
   window.removeEventListener('keydown', onKeydown)
   if (tick) clearInterval(tick)
 })
