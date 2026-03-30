@@ -20,9 +20,9 @@ export default defineNuxtConfig({
   devtools: { enabled: false },
   nitro: {
     preset: 'node-server',
-    // Monorepo: emit to repo-root /dist so Hostinger (expected output dir) finds the build
+    // Monorepo root: Hostinger/Vercel expect .output at repo root, not under apps/web
     output: {
-      dir: resolve(currentDir, '../../dist')
+      dir: resolve(currentDir, '../../.output')
     }
   }
 })
