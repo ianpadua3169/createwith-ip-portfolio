@@ -2,9 +2,9 @@
   <Teleport to="body">
     <Transition name="snake-fade">
       <div v-if="open"
-           class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+           class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain py-4"
            @click.self="close">
-        <div class="bg-terminal-panel rounded-xl p-6 neon-border max-w-[95vw]" @click.stop>
+        <div class="bg-terminal-panel rounded-xl p-4 sm:p-6 neon-border max-w-[95vw] w-full touch-manipulation my-auto" @click.stop>
           <div class="flex items-center justify-between mb-4 gap-4">
             <h3 class="text-xl font-bold text-terminal-green terminal-text">Snake Game</h3>
             <div class="text-terminal-cyan terminal-text">Score: {{ score }}</div>
@@ -13,11 +13,14 @@
           <canvas ref="canvasRef"
                   :width="gridSize * cellSize"
                   :height="gridSize * cellSize"
-                  class="border border-terminal-green/30 rounded-lg mb-4 block mx-auto bg-black" />
+                  class="border border-terminal-green/30 rounded-lg mb-2 block mx-auto bg-black w-full max-w-[min(92vw,400px)] h-auto [image-rendering:pixelated]" />
 
-          <p v-if="!gameStarted && !gameOver" class="text-center text-gray-400 text-sm mb-4">
-            Press any arrow key to start
+          <p v-if="!gameStarted && !gameOver" class="text-center text-gray-400 text-sm mb-1">
+            <span class="hidden sm:inline">Arrow keys</span><span class="sm:hidden">Tap the pad</span> to move &bull;
+            <span class="hidden sm:inline"> any key starts</span><span class="sm:hidden"> first tap starts</span>
           </p>
+
+          <GameTouchDpad v-if="!gameOver" class="pb-2" @dir="onTouchDir" />
 
           <div v-if="gameOver" class="text-center mb-4">
             <p class="text-terminal-purple font-bold mb-2">Game Over!</p>
@@ -81,6 +84,19 @@ function randomFood(body) {
   return p
 }
 
+function applyDirection(dx, dy) {
+  if (!props.open || gameOver.value) return
+  if (!gameStarted.value) gameStarted.value = true
+  if (dx === 0 && dy === -1 && direction.value.y === 0) direction.value = { x: 0, y: -1 }
+  else if (dx === 0 && dy === 1 && direction.value.y === 0) direction.value = { x: 0, y: 1 }
+  else if (dx === -1 && dy === 0 && direction.value.x === 0) direction.value = { x: -1, y: 0 }
+  else if (dx === 1 && dy === 0 && direction.value.x === 0) direction.value = { x: 1, y: 0 }
+}
+
+function onTouchDir({ x, y }) {
+  applyDirection(x, y)
+}
+
 function onKeydown(e) {
   if (!props.open) return
 
@@ -90,24 +106,22 @@ function onKeydown(e) {
     return
   }
 
-  if (!gameStarted.value) gameStarted.value = true
-
   switch (e.key) {
     case 'ArrowUp':
       e.preventDefault()
-      if (direction.value.y === 0) direction.value = { x: 0, y: -1 }
+      applyDirection(0, -1)
       break
     case 'ArrowDown':
       e.preventDefault()
-      if (direction.value.y === 0) direction.value = { x: 0, y: 1 }
+      applyDirection(0, 1)
       break
     case 'ArrowLeft':
       e.preventDefault()
-      if (direction.value.x === 0) direction.value = { x: -1, y: 0 }
+      applyDirection(-1, 0)
       break
     case 'ArrowRight':
       e.preventDefault()
-      if (direction.value.x === 0) direction.value = { x: 1, y: 0 }
+      applyDirection(1, 0)
       break
     default:
       break

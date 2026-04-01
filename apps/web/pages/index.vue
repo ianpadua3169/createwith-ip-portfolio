@@ -55,6 +55,19 @@
           <kbd class="px-2 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.7rem]">/</kbd>
           <span class="ml-1.5">to open the command palette.</span>
         </p>
+        <div class="mt-6 flex flex-col items-center gap-2 sm:hidden">
+          <button type="button"
+                  class="touch-manipulation select-none px-5 py-3 rounded-xl border-2 border-terminal-green/50 bg-terminal-panel text-terminal-green text-sm font-medium terminal-text active:scale-95 transition-transform w-full max-w-xs"
+                  @click="commandPaletteOpen = true">
+            Open command palette
+          </button>
+          <p class="text-center text-[0.65rem] text-gray-600 terminal-text px-2">
+            Run <span class="text-terminal-cyan">play --snake</span> or <span class="text-terminal-cyan">play --pacman</span> — use on-screen arrows in-game on mobile.
+          </p>
+        </div>
+        <div class="mt-6 hidden sm:block text-center text-[0.65rem] text-gray-600 terminal-text">
+          Games: <span class="text-terminal-cyan">play --snake</span>, <span class="text-terminal-cyan">play --pacman</span>
+        </div>
       </div>
     </footer>
 

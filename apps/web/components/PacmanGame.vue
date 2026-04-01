@@ -2,9 +2,9 @@
   <Teleport to="body">
     <Transition name="pac-fade">
       <div v-if="open"
-           class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm"
+           class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain py-4"
            @click.self="close">
-        <div class="bg-terminal-panel rounded-xl p-5 sm:p-6 neon-border max-w-[98vw] overflow-auto" @click.stop>
+        <div class="bg-terminal-panel rounded-xl p-4 sm:p-6 neon-border max-w-[98vw] w-full overflow-auto touch-manipulation my-auto" @click.stop>
           <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
             <h3 class="text-xl font-bold text-terminal-green terminal-text">Pac-Man</h3>
             <div class="flex gap-4 text-sm terminal-text">
@@ -16,11 +16,13 @@
           <canvas ref="canvasRef"
                   :width="cols * cell"
                   :height="rows * cell"
-                  class="border border-terminal-green/30 rounded-lg block mx-auto bg-black mb-3" />
+                  class="border border-terminal-green/30 rounded-lg block mx-auto bg-black mb-2 w-full max-w-[min(96vw,336px)] h-auto [image-rendering:pixelated]" />
 
-          <p v-if="!gameStarted && !gameOver && !won" class="text-center text-gray-400 text-sm mb-3">
-            Arrow keys to move &bull; Eat all pellets &bull; Avoid ghosts
+          <p v-if="!gameStarted && !gameOver && !won" class="text-center text-gray-400 text-sm mb-2">
+            <span class="hidden sm:inline">Arrow keys</span><span class="sm:hidden">Tap the pad</span> to move &bull; Clear pellets &bull; Avoid ghosts
           </p>
+
+          <GameTouchDpad v-if="!gameOver && !won" dense class="pb-1" @dir="onTouchDir" />
           <p v-if="won" class="text-center text-terminal-green font-bold text-sm mb-3">You cleared the maze!</p>
 
           <div v-if="gameOver" class="text-center mb-3">
@@ -261,6 +263,17 @@ function tickGame() {
   mouthPhase.value = (mouthPhase.value + 1) % 4
 }
 
+function applyWantDir(dx, dy) {
+  if (!props.open || gameOver.value || won.value) return
+  if (!gameStarted.value) gameStarted.value = true
+  pac.value.wantDx = dx
+  pac.value.wantDy = dy
+}
+
+function onTouchDir({ x, y }) {
+  applyWantDir(x, y)
+}
+
 function onKeydown(e) {
   if (!props.open) return
   if (e.key === 'Escape') {
@@ -270,28 +283,22 @@ function onKeydown(e) {
   }
   if (gameOver.value || won.value) return
 
-  if (!gameStarted.value) gameStarted.value = true
-
   switch (e.key) {
     case 'ArrowUp':
       e.preventDefault()
-      pac.value.wantDx = 0
-      pac.value.wantDy = -1
+      applyWantDir(0, -1)
       break
     case 'ArrowDown':
       e.preventDefault()
-      pac.value.wantDx = 0
-      pac.value.wantDy = 1
+      applyWantDir(0, 1)
       break
     case 'ArrowLeft':
       e.preventDefault()
-      pac.value.wantDx = -1
-      pac.value.wantDy = 0
+      applyWantDir(-1, 0)
       break
     case 'ArrowRight':
       e.preventDefault()
-      pac.value.wantDx = 1
-      pac.value.wantDy = 0
+      applyWantDir(1, 0)
       break
     default:
       break
