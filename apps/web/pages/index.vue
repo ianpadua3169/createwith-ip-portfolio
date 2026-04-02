@@ -62,14 +62,14 @@
             Open command palette
           </button>
           <p class="text-center text-[0.65rem] text-gray-600 terminal-text px-2 max-w-md">
-            Run <span class="text-terminal-cyan">play --snake</span> or <span class="text-terminal-cyan">play --pacman</span>. Use the on-screen direction pad in-game on phones and tablets (arrow keys if you have a keyboard).
+            Run <span class="text-terminal-cyan">play --tetris</span> or <span class="text-terminal-cyan">play --pacman</span>. Use the on-screen controls in-game on phones and tablets (arrow keys if you have a keyboard).
           </p>
           <p class="text-center text-[0.65rem] text-gray-500 terminal-text px-2">
             With a keyboard: <kbd class="px-1.5 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.65rem]">⌘</kbd>/<kbd class="px-1.5 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.65rem]">Ctrl</kbd>+<kbd class="px-1.5 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.65rem]">K</kbd> or <kbd class="px-1.5 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.65rem]">/</kbd>
           </p>
         </div>
         <div class="mt-6 hidden xl:block text-center text-[0.65rem] text-gray-600 terminal-text">
-          Games: <span class="text-terminal-cyan">play --snake</span>, <span class="text-terminal-cyan">play --pacman</span>
+          Games: <span class="text-terminal-cyan">play --tetris</span>, <span class="text-terminal-cyan">play --pacman</span>
         </div>
       </div>
     </footer>
