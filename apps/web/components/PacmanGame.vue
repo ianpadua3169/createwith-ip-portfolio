@@ -18,8 +18,8 @@
                   :height="rows * cell"
                   class="border border-terminal-green/30 rounded-lg block mx-auto bg-black mb-2 w-full max-w-[min(96vw,336px)] h-auto [image-rendering:pixelated]" />
 
-          <p v-if="!gameStarted && !gameOver && !won" class="text-center text-gray-400 text-sm mb-2">
-            <span class="hidden sm:inline">Arrow keys</span><span class="sm:hidden">Tap the pad</span> to move &bull; Clear pellets &bull; Avoid ghosts
+          <p v-if="!gameStarted && !gameOver && !won" class="text-center text-gray-400 text-sm mb-2 px-1">
+            Arrow keys or direction pad to move &bull; Clear pellets &bull; Avoid ghosts
           </p>
 
           <GameTouchDpad v-if="!gameOver && !won" dense class="pb-1" @dir="onTouchDir" />

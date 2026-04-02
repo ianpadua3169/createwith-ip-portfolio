@@ -15,9 +15,8 @@
                   :height="gridSize * cellSize"
                   class="border border-terminal-green/30 rounded-lg mb-2 block mx-auto bg-black w-full max-w-[min(92vw,400px)] h-auto [image-rendering:pixelated]" />
 
-          <p v-if="!gameStarted && !gameOver" class="text-center text-gray-400 text-sm mb-1">
-            <span class="hidden sm:inline">Arrow keys</span><span class="sm:hidden">Tap the pad</span> to move &bull;
-            <span class="hidden sm:inline"> any key starts</span><span class="sm:hidden"> first tap starts</span>
+          <p v-if="!gameStarted && !gameOver" class="text-center text-gray-400 text-sm mb-1 px-1">
+            Use arrow keys or the direction pad to move &bull; any key or first pad tap starts
           </p>
 
           <GameTouchDpad v-if="!gameOver" class="pb-2" @dir="onTouchDir" />
