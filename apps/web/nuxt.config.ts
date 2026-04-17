@@ -8,7 +8,7 @@ const isVercel = process.env.VERCEL === '1'
 
 export default defineNuxtConfig({
   compatibilityDate: '2025-01-01',
-  modules: ['@nuxtjs/tailwindcss'],
+  modules: ['@nuxtjs/tailwindcss', '@vercel/analytics'],
   app: {
     head: {
       title: 'Ian Padua - Systems & Web Developer | IT Project Manager',
