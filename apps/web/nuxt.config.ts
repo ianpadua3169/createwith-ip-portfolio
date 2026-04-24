@@ -25,6 +25,16 @@ export default defineNuxtConfig({
   },
   css: ['~/assets/css/main.css'],
   devtools: { enabled: false },
+  runtimeConfig: {
+    public: {
+      sanity: {
+        projectId: process.env.SANITY_PROJECT_ID || 't5z7w2ne',
+        dataset: process.env.SANITY_DATASET || 'production',
+        apiVersion: process.env.SANITY_API_VERSION || '2024-10-01',
+        useCdn: true
+      }
+    }
+  },
   nitro: {
     // Hostinger / VPS: node-server + `.output`. Vercel: serverless preset + `.vercel/output` at monorepo root.
     preset: isVercel ? 'vercel' : 'node-server',

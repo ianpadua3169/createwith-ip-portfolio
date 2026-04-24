@@ -4,6 +4,7 @@
     <SkillNodeGraph />
     <CodeToResultToggle />
     <WorkHistoryTimeline />
+    <BlogPreview />
 
     <!-- Contact Section -->
     <section class="py-24 px-4 sm:px-6 lg:px-8 bg-terminal-panel">
