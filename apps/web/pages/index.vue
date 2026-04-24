@@ -4,6 +4,7 @@
     <SkillNodeGraph />
     <CodeToResultToggle />
     <WorkHistoryTimeline />
+    <DesignsPreview />
     <BlogPreview />
 
     <!-- Contact Section -->

@@ -63,7 +63,7 @@
 </template>
 
 <script setup>
-import { Terminal as TerminalIcon, Download, Mail, Github, HelpCircle, Gamepad2, Ghost, BookOpen } from 'lucide-vue-next'
+import { Terminal as TerminalIcon, Download, Mail, Github, HelpCircle, Gamepad2, Ghost, BookOpen, Palette } from 'lucide-vue-next'
 
 const router = useRouter()
 
@@ -83,6 +83,7 @@ watch(() => props.open, (val) => {
 
 const commands = [
   { value: 'help', label: 'help', description: 'Show available commands', icon: HelpCircle },
+  { value: 'designs --all', label: 'designs --all', description: 'Open the web graphic designs gallery', icon: Palette },
   { value: 'blog --latest', label: 'blog --latest', description: 'Open the Sanity-powered blog', icon: BookOpen },
   { value: 'play --tetris', label: 'play --tetris', description: 'Play Tetris', icon: Gamepad2 },
   { value: 'play --pacman', label: 'play --pacman', description: 'Play Pac-Man maze game', icon: Ghost },
@@ -119,6 +120,16 @@ function executeCmd(cmd) {
     return
   }
 
+  if (cmd === 'designs --all') {
+    output.value.push({ type: 'output', text: 'Opening /designs ...' })
+    input.value = ''
+    setTimeout(() => {
+      emit('update:open', false)
+      router.push('/designs')
+    }, 300)
+    return
+  }
+
   if (cmd === 'play --pacman') {
     output.value.push({ type: 'output', text: 'Launching Pac-Man...' })
     input.value = ''
@@ -130,7 +141,7 @@ function executeCmd(cmd) {
   }
 
   const responses = {
-    'help': 'Available commands:\n  help - Show this help\n  blog --latest - Open the Sanity blog\n  play --tetris - Play Tetris\n  play --pacman - Play Pac-Man\n  about --me - Show about info\n  projects --all - List projects\n  contact --email - Show contact\n  download --cv - Download CV',
+    'help': 'Available commands:\n  help - Show this help\n  designs --all - Open the designs gallery\n  blog --latest - Open the Sanity blog\n  play --tetris - Play Tetris\n  play --pacman - Play Pac-Man\n  about --me - Show about info\n  projects --all - List projects\n  contact --email - Show contact\n  download --cv - Download CV',
     'about --me': 'Ian Padua\nSystems & Web Developer | IT Project Manager\nLocation: Antipolo City, Rizal, Philippines\nExperience: 25+ years across PH, KSA, Mongolia\nEducation: STI (Programming) | Don Bosco (Electronics)',
     'projects --all': '1. Headless CMS Blog & Portfolio (Nuxt.js + Sanity.io)\n2. Java Library Management System (LMS)\n3. Enterprise BIR Zonal Value Plugin (WordPress)\n4. IT Curriculum & Lab Migration (Ikh Zasag, Mongolia)\n5. Integrated Security & Web Deployment\n6. Multi-Branch Fiber Optic Network Migration (KSA)\n7. Legacy Financial System Migration',
     'contact --email': 'Email: ianpadua@createwith-ip.com\nGitHub: github.com/ianpadua3169',
