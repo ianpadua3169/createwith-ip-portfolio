@@ -15,7 +15,17 @@ export default defineNuxtConfig({
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1, viewport-fit=cover' },
-        { name: 'description', content: 'IT Systems & Web Developer with 25+ years of experience in IT infrastructure, software engineering, and technical education. Expert in bridging legacy systems and modern web architectures.' }
+        { name: 'description', content: 'IT Systems & Web Developer with 25+ years of experience in IT infrastructure, software engineering, and technical education. Expert in bridging legacy systems and modern web architectures.' },
+        { name: 'theme-color', content: '#00FF41' },
+        { name: 'apple-mobile-web-app-title', content: 'Ian Padua' },
+        { name: 'apple-mobile-web-app-capable', content: 'yes' },
+        { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' }
+      ],
+      link: [
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
+        { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.svg' },
+        { rel: 'mask-icon', href: '/favicon.svg', color: '#00FF41' },
+        { rel: 'manifest', href: '/site.webmanifest' }
       ]
     }
   },
