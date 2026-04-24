@@ -2,9 +2,9 @@
   <Teleport to="body">
     <Transition name="tetris-fade">
       <div v-if="open"
-           class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain py-4"
+           class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain py-4 px-3 sm:px-4 pt-[max(1rem,env(safe-area-inset-top,0px))] pb-[max(1rem,env(safe-area-inset-bottom,0px))]"
            @click.self="close">
-        <div class="bg-terminal-panel rounded-xl p-4 sm:p-6 neon-border max-w-[95vw] w-full touch-manipulation my-auto" @click.stop>
+        <div class="bg-terminal-panel rounded-xl p-4 sm:p-6 neon-border max-w-[95vw] w-full touch-manipulation my-auto min-h-0" @click.stop>
           <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
             <h3 class="text-xl font-bold text-terminal-green terminal-text">Tetris</h3>
             <div class="flex gap-4 text-sm terminal-text">
@@ -19,18 +19,30 @@
                   class="border border-terminal-green/30 rounded-lg mb-2 block mx-auto bg-black w-full max-w-[min(92vw,280px)] h-auto [image-rendering:pixelated]" />
 
           <p v-if="!gameOver" class="text-center text-gray-400 text-sm mb-2 px-1">
-            Arrows: move & rotate &bull; Touch: pad + rotate &bull; <kbd class="px-1 rounded border border-terminal-green/40 text-terminal-green text-xs">Space</kbd> hard drop
+            <span class="hidden sm:inline">Arrows move / rotate &bull; </span>
+            <span class="sm:hidden">Pad + buttons below &bull; </span>
+            <span class="hidden sm:inline"><kbd class="px-1 rounded border border-terminal-green/40 text-terminal-green text-xs">Space</kbd> hard drop</span>
+            <span class="sm:hidden">Hard drop button drops instantly</span>
           </p>
 
           <div v-if="!gameOver" class="flex flex-col items-stretch gap-3 pb-2 max-w-xs mx-auto w-full">
-            <button type="button"
-                    class="min-h-[48px] xl:min-h-10 rounded-xl border-2 border-terminal-cyan/50 bg-terminal-panel text-terminal-cyan flex items-center justify-center gap-2 touch-manipulation select-none active:bg-terminal-cyan/15 active:scale-[0.98] transition-transform font-medium terminal-text text-sm"
-                    aria-label="Rotate"
-                    @pointerdown.prevent="onRotate">
-              <RotateCw class="w-6 h-6 xl:w-5 xl:h-5" />
-              Rotate
-            </button>
-            <GameTouchDpad dense class="!mt-0" @dir="onTouchDir" />
+            <div class="grid grid-cols-2 gap-2">
+              <button type="button"
+                      class="min-h-[48px] xl:min-h-10 rounded-xl border-2 border-terminal-cyan/50 bg-terminal-panel text-terminal-cyan flex items-center justify-center gap-2 touch-manipulation select-none active:bg-terminal-cyan/15 active:scale-[0.98] transition-transform font-medium terminal-text text-sm"
+                      aria-label="Rotate piece"
+                      @pointerdown.prevent="onRotate">
+                <RotateCw class="w-6 h-6 xl:w-5 xl:h-5 shrink-0" />
+                <span class="truncate">Rotate</span>
+              </button>
+              <button type="button"
+                      class="min-h-[48px] xl:min-h-10 rounded-xl border-2 border-terminal-purple/50 bg-terminal-panel text-terminal-purple flex items-center justify-center gap-2 touch-manipulation select-none active:bg-terminal-purple/15 active:scale-[0.98] transition-transform font-medium terminal-text text-sm"
+                      aria-label="Hard drop"
+                      @pointerdown.prevent="onHardDropTouch">
+                <ArrowDownToLine class="w-6 h-6 xl:w-5 xl:h-5 shrink-0" />
+                <span class="truncate">Drop</span>
+              </button>
+            </div>
+            <GameTouchDpad dense omit-up class="!mt-0" @dir="onTouchDir" />
           </div>
 
           <div v-if="gameOver" class="text-center mb-4">
@@ -54,7 +66,7 @@
 </template>
 
 <script setup>
-import { RotateCw } from 'lucide-vue-next'
+import { RotateCw, ArrowDownToLine } from 'lucide-vue-next'
 
 /** 10×22 board (2 hidden rows at top). Canvas shows bottom 20 rows. */
 
@@ -261,6 +273,10 @@ function onTouchDir({ x, y }) {
 
 function onRotate() {
   tryRotate()
+}
+
+function onHardDropTouch() {
+  hardDrop()
 }
 
 function onKeydown(e) {

@@ -1,7 +1,7 @@
 <template>
   <div class="mt-4" aria-label="Touch controls">
     <p class="text-center text-xs text-gray-500 mb-2 xl:hidden">
-      Tap to steer
+      {{ hintDisplay }}
     </p>
     <div
       class="grid grid-cols-3 gap-2 mx-auto w-fit"
@@ -9,6 +9,7 @@
     >
       <span class="min-h-[48px] min-w-[48px] xl:min-h-10 xl:min-w-10" />
       <button
+        v-if="!omitUp"
         type="button"
         class="min-h-[48px] min-w-[48px] xl:min-h-10 xl:min-w-10 rounded-xl border-2 border-terminal-green/40 bg-terminal-panel text-terminal-green flex items-center justify-center touch-manipulation select-none active:bg-terminal-green/20 active:scale-95 transition-transform focus:outline-none focus-visible:ring-2 focus-visible:ring-terminal-cyan/50"
         aria-label="Up"
@@ -16,6 +17,7 @@
       >
         <ChevronUp class="w-7 h-7 xl:w-6 xl:h-6 mx-auto" />
       </button>
+      <span v-else class="min-h-[48px] min-w-[48px] xl:min-h-10 xl:min-w-10" aria-hidden="true" />
       <span class="min-h-[48px] min-w-[48px] xl:min-h-10 xl:min-w-10" />
       <button
         type="button"
@@ -53,9 +55,16 @@
 <script setup>
 import { ChevronUp, ChevronDown, ChevronLeft, ChevronRight } from 'lucide-vue-next'
 
-defineProps({
-  /** Slightly tighter grid on small modals */
-  dense: { type: Boolean, default: false }
+const props = defineProps({
+  dense: { type: Boolean, default: false },
+  omitUp: { type: Boolean, default: false },
+  touchHint: { type: String, default: '' }
+})
+
+const hintDisplay = computed(() => {
+  if (props.touchHint) return props.touchHint
+  if (props.omitUp) return 'Tap ← ↓ → to move / soft-drop'
+  return 'Tap to steer'
 })
 
 const emit = defineEmits(['dir'])
@@ -64,4 +73,3 @@ function emitDir(x, y) {
   emit('dir', { x, y })
 }
 </script>
-

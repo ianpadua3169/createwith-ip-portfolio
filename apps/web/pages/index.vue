@@ -39,13 +39,16 @@
     <footer class="py-12 px-4 sm:px-6 lg:px-8 bg-black border-t border-terminal-green/20">
       <div class="max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-          <div class="flex items-center gap-2">
-            <Terminal class="w-5 h-5 text-terminal-green" />
-            <span class="text-terminal-green font-semibold terminal-text">Ian Padua</span>
+          <div class="flex flex-wrap items-center gap-3 justify-center md:justify-start">
+            <MarqueeLogo compact class="shrink-0" />
+            <div class="flex items-center gap-2">
+              <Terminal class="w-5 h-5 text-terminal-green" />
+              <span class="text-terminal-green font-semibold terminal-text">Ian Padua</span>
+            </div>
           </div>
           <p class="text-sm text-gray-400">&copy; 2026 All rights reserved</p>
         </div>
-        <p class="mt-8 text-center text-xs text-gray-500 terminal-text leading-relaxed hidden xl:block">
+        <p class="mt-8 text-center text-xs text-gray-500 terminal-text leading-relaxed hidden xl:block xl:pointer-coarse:hidden">
           <span class="text-gray-400">Terminal commands</span>
           — press
           <kbd class="ml-1.5 px-2 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.7rem]">Ctrl</kbd><span class="mx-0.5 text-gray-600">+</span><kbd class="px-2 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.7rem]">K</kbd>
@@ -55,7 +58,7 @@
           <kbd class="px-2 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.7rem]">/</kbd>
           <span class="ml-1.5">to open the command palette.</span>
         </p>
-        <div class="mt-8 flex flex-col items-center gap-3 xl:hidden">
+        <div class="mt-8 flex flex-col items-center gap-3 xl:hidden xl:pointer-coarse:flex">
           <button type="button"
                   class="touch-manipulation select-none px-5 py-3 rounded-xl border-2 border-terminal-green/50 bg-terminal-panel text-terminal-green text-sm font-medium terminal-text active:scale-95 transition-transform w-full max-w-xs"
                   @click="commandPaletteOpen = true">
@@ -68,7 +71,7 @@
             With a keyboard: <kbd class="px-1.5 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.65rem]">⌘</kbd>/<kbd class="px-1.5 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.65rem]">Ctrl</kbd>+<kbd class="px-1.5 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.65rem]">K</kbd> or <kbd class="px-1.5 py-0.5 bg-terminal-panel rounded border border-terminal-green/30 text-terminal-green font-mono text-[0.65rem]">/</kbd>
           </p>
         </div>
-        <div class="mt-6 hidden xl:block text-center text-[0.65rem] text-gray-600 terminal-text">
+        <div class="mt-6 hidden xl:block xl:pointer-coarse:hidden text-center text-[0.65rem] text-gray-600 terminal-text">
           Games: <span class="text-terminal-cyan">play --tetris</span>, <span class="text-terminal-cyan">play --pacman</span>
         </div>
       </div>

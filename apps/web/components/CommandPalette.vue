@@ -1,9 +1,10 @@
 <template>
   <Teleport to="body">
     <Transition name="fade">
-      <div v-if="open" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-start justify-center pt-20"
+      <div v-if="open"
+           class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-start justify-center px-3 sm:px-4 pt-[max(5rem,env(safe-area-inset-top,0px)+1rem)] pb-[max(1rem,env(safe-area-inset-bottom,0px))] overflow-y-auto overscroll-contain touch-manipulation"
            @click="$emit('update:open', false)">
-        <div class="w-full max-w-2xl bg-black rounded-xl neon-border overflow-hidden" @click.stop>
+        <div class="w-full max-w-2xl bg-black rounded-xl neon-border overflow-hidden my-4 shrink-0" @click.stop>
           <!-- Header -->
           <div class="bg-terminal-panel px-4 py-2 border-b border-terminal-green/20 flex items-center gap-2">
             <div class="w-3 h-3 rounded-full bg-red-500" />
@@ -25,14 +26,20 @@
           <div class="flex items-center px-4 py-3 border-t border-terminal-green/20">
             <TerminalIcon class="w-4 h-4 text-terminal-cyan mr-2" />
             <input ref="inputEl" v-model="input" placeholder="Type a command..."
-                   class="flex-1 bg-transparent text-terminal-green terminal-text text-sm outline-none placeholder-gray-600"
+                   class="flex-1 min-w-0 bg-transparent text-terminal-green terminal-text text-base sm:text-sm outline-none placeholder-gray-600 touch-manipulation"
+                   type="text"
+                   enterkeyhint="go"
+                   inputmode="text"
+                   autocomplete="off"
+                   autocapitalize="off"
+                   spellcheck="false"
                    @keydown.enter="execute" />
           </div>
 
           <!-- Commands -->
           <div class="border-t border-terminal-green/20 p-2 max-h-48 overflow-y-auto">
             <div v-for="cmd in filteredCommands" :key="cmd.value"
-                 class="flex items-center gap-3 px-3 py-2 rounded-lg cursor-pointer hover:bg-terminal-green/10 transition-colors"
+                 class="flex items-center gap-3 px-3 py-3 sm:py-2 rounded-lg cursor-pointer hover:bg-terminal-green/10 active:bg-terminal-green/15 transition-colors touch-manipulation select-none"
                  @click="executeCmd(cmd.value)">
               <component :is="cmd.icon" class="w-4 h-4 text-terminal-cyan" />
               <div>

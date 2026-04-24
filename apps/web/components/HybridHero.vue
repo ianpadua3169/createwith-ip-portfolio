@@ -19,6 +19,9 @@
       <div class="absolute inset-0 bg-gradient-to-bl from-terminal-cyan/5 to-transparent pointer-events-none" />
       <div class="w-full max-w-2xl space-y-8 relative z-10">
         <div class="animate-fade-in-up">
+          <div class="mb-5">
+            <MarqueeLogo />
+          </div>
           <h1 class="text-5xl lg:text-6xl font-bold mb-4 neon-glow" style="letter-spacing: -0.02em">
             Ian Padua
           </h1>

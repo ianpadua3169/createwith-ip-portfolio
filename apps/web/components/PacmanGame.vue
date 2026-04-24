@@ -2,9 +2,9 @@
   <Teleport to="body">
     <Transition name="pac-fade">
       <div v-if="open"
-           class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain py-4"
+           class="fixed inset-0 z-[60] flex items-center justify-center bg-black/80 backdrop-blur-sm overflow-y-auto overscroll-contain py-4 px-3 sm:px-4 pt-[max(1rem,env(safe-area-inset-top,0px))] pb-[max(1rem,env(safe-area-inset-bottom,0px))]"
            @click.self="close">
-        <div class="bg-terminal-panel rounded-xl p-4 sm:p-6 neon-border max-w-[98vw] w-full overflow-auto touch-manipulation my-auto" @click.stop>
+        <div class="bg-terminal-panel rounded-xl p-4 sm:p-6 neon-border max-w-[98vw] w-full overflow-auto touch-manipulation my-auto min-h-0" @click.stop>
           <div class="flex flex-wrap items-center justify-between gap-3 mb-3">
             <h3 class="text-xl font-bold text-terminal-green terminal-text">Pac-Man</h3>
             <div class="flex gap-4 text-sm terminal-text">
